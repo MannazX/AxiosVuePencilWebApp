@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pencil Axios Webapp</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+    <!-- TODO: Import Vue.js core library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.js"></script>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <!-- Insert Vue intro header here -->
+        <h1>{{ pageTitle }}</h1>
+        <input v-model="pencilType" placeholder="Type">
+        <input v-model="pencilBrand" placeholder="Brand">
+        <input v-model="pencilThickness" placeholder="Thickness">
+        <input v-model="pencilLength" placeholder="Length">
+        <input v-model="pencilPrice" placeholder="Price">
+        <button @click="addPencil">Add</button>
+
+        <br><br>
+
+        <input v-model="pencilId" placeholder="Id">
+        <button @click="deletePencil">Delete</button>
+
+        <br><br>
+
+        <input placeholder="type" type="text" v-model="pencilType" v-on:keyup.enter="filterByType">
+        <button v-on:click="filterByType">Filter By Type</button>
+
+        <input placeholder="brand" type="text" v-model="pencilBrand" v-on:keyup.enter="filterByBrand">
+        <button v-on:click="filterByBrand">Filter By Brand</button>
+
+        <table v-if="selectList.length > 0" class="table table-striped">
+            <thead>
+                <th>Sort By Id
+                    <button v-on:click="sortByIdAsc">Asc</button>
+                    <button v-on:click="sortByIdDesc">Desc</button>
+                </th>
+                <th></th>
+                <th>Sort By Brand
+                    <button v-on:click="sortByBrand">Sort</button>
+                </th>
+                <th>Sort By Thickness
+                    <button v-on:click="sortByThicknessAsc">Asc</button>
+                    <button v-on:click="sortByThicknessDesc">Desc</button>
+                </th>
+                <th>Sort By Length
+                    <button v-on:click="sortByLengthAsc">Asc</button>
+                    <button v-on:click="sortByLengthDesc">Desc</button>
+                </th>
+                <th>Sort By Price
+                    <button v-on:click="sortByPriceAsc">Asc</button>
+                    <button v-on:click="sortByPriceDesc">Desc</button>
+                </th>
+            </thead>
+            <tbody>
+                <tr v-for="pencil in selectList">
+                    <td>{{ pencil.pencilId }}</td>
+                    <td>{{ pencil.type }}</td>
+                    <td>{{ pencil.brand }}</td>
+                    <td>{{ pencil.thickness }}</td>
+                    <td>{{ pencil.length }}</td>
+                    <td>{{ pencil.price }}</td>
+                </tr>
+            </tbody>
+            <div v-else>
+                Table Empty: Activate the REST API or add a Pencil object
+            </div>
+        </table>
+    </div>
+    <script src="./js/main.js"></script>
+    <script>
+        const mountedApp = app.mount("#app")
+    </script>
+</body>
+
+
+</html>
